@@ -92,5 +92,8 @@ public class OrderItem implements Serializable{
 		return true;
 	}
 	
-	
+	// No java EE, oq vale é o get
+	public Double getSubTotal() {
+		return price * quantity;
+	}
 }
