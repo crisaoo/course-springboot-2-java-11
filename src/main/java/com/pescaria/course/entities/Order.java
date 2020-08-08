@@ -38,7 +38,6 @@ public class Order implements Serializable{
 	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)	// CascadeType.ALL = para que o payment tenha o mesmo id do order
 	private Payment payment;
 	
-	
 	public Order() {}
 
 	public Order(Long id, Instant moment, OrderStatus status, User client) {
