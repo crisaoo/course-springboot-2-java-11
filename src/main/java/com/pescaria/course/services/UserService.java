@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.pescaria.course.entities.User;
 import com.pescaria.course.repositories.UserRepository;
+import com.pescaria.course.services.exceptions.ResourceNotFoundException;
 
 @Service	// Registrando como um componente de serviço(o userRepository não precisa, pois ele já herda de uma classe que tem essa annotation)
 			// Isso é necessário quando utilizamos um autowired para injetar dependência dessa classe em outro lugar
@@ -19,7 +20,7 @@ public class UserService {
 	}
 	
 	public User findById (Long id) {
-		return repository.findById(id).get();
+		return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));	// Get ou lance a exceção
 	}
 	
 	public User insert(User obj) {
