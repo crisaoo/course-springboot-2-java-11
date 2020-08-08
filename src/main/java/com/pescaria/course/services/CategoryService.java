@@ -20,4 +20,22 @@ public class CategoryService {
 	public Category findById(Long id) {
 		return repository.findById(id).get();
 	}
+	
+	public Category insert(Category obj) {
+		return repository.save(obj);
+	}
+
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+
+	public Category update(Long id, Category obj) {
+		Category entity = repository.getOne(id);
+		updateData(entity, obj);
+		return repository.save(entity);
+	}
+
+	private void updateData(Category entity, Category obj) {
+		entity.setName(obj.getName());
+	}
 }
