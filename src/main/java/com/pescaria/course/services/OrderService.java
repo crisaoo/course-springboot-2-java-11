@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pescaria.course.entities.Order;
+import com.pescaria.course.entities.User;
 import com.pescaria.course.repositories.OrderRepository;
 
 @Service
 public class OrderService {
 	@Autowired
 	private OrderRepository repository;
+	@Autowired
+	private UserService userService;
 
 	public List<Order> findAll() {
 		return repository.findAll();
@@ -22,6 +25,8 @@ public class OrderService {
 	}
 
 	public Order insert(Order obj) {
+		User client = userService.findById(obj.getClient().getId());
+		obj.setClient(client);
 		return repository.save(obj);
 	}
 
