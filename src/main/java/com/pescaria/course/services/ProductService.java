@@ -2,6 +2,8 @@ package com.pescaria.course.services;
 
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -42,9 +44,14 @@ public class ProductService {
 	}
 
 	public Product update(Long id, Product obj) {
-		Product entity = repository.getOne(id);
-		updateData(entity, obj);
-		return repository.save(entity);
+		try {
+			Product entity = repository.getOne(id);
+			updateData(entity, obj);
+			return repository.save(entity);
+		}
+		catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 
 	private void updateData(Product entity, Product obj) {
